@@ -1,0 +1,15 @@
+{
+  "name": "dockerwatch-influx",
+  "version": "1.0.0",
+  "description": "Handle incoming stats and store in InfluxDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Shane Lacey",
+  "license": "ISC",
+  "dependencies": {
+    "influx": "5.0.x"
+  }
+}
