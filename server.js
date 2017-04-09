@@ -20,13 +20,34 @@ net.createServer(function(socket){
 	socket.on('data', function(data){
 		var info = JSON.parse(data)
 		containerId = info.id.substring(0, 3)
-		console.log('RECEIVED DATA ID: ' + containerId + ':  CPU: ' + info.cpu.toFixed(2) + '%  MEM: ' + info.mem.toFixed(2) + '%')
-
-		influx.writeMeasurement(containerId, [
-			{
-				fields: {cpu: info.cpu.toFixed(2), mem: info.mem.toFixed(2)}
-			}
-		])
+		if(info.tag === 'Stats'){
+			console.log('RECEIVED DATA ID: ' + containerId + ':  CPU: ' + info.cpu.toFixed(2) + '%  MEM: ' + info.mem.toFixed(2) + '%')
+			influx.writeMeasurement(containerId, [
+				{
+					fields: {cpu: info.cpu.toFixed(2), mem: info.mem.toFixed(2)},
+					tags: {type: 'stat'}
+				}
+			])
+		}
+		else if(info.tag === 'Info'){
+			console.log('Received container info:', info)
+			influx.writeMeasurement(containerId, [
+				{
+					fields: {
+						name: info.name,
+						created: info.created,
+						image: info.image,
+						restartCount: info.restartCount,
+						ipAddress: info.ipAddress,
+						port: info.port,
+						subnetAddress: info.subnetAddress,
+						macAddress: info.macAddress,
+						state: info.state
+					},
+					tags: {type: 'info'}
+				}
+			])
+		}
 	})
 
 	socket.on('close', function(){
