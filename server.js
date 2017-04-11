@@ -21,10 +21,14 @@ net.createServer(function(socket){
 		var info = JSON.parse(data)
 		containerId = info.id.substring(0, 3)
 		if(info.tag === 'Stats'){
-			console.log('RECEIVED DATA ID: ' + containerId + ':  CPU: ' + info.cpu.toFixed(2) + '%  MEM: ' + info.mem.toFixed(2) + '%')
+			console.log('RECEIVED DATA ID: ' + containerId + ':  CPU: ' + info.cpu.toFixed(2) + '%  MEMPERC: ' + info.memPerc.toFixed(2) + '%  MEMBYTES: ' + info.memBytes)
 			influx.writeMeasurement(containerId, [
 				{
-					fields: {cpu: info.cpu.toFixed(2), mem: info.mem.toFixed(2)},
+					fields: {
+						cpu: info.cpu.toFixed(2),
+						memPerc: info.memPerc.toFixed(2),
+						memBytes: info.memBytes
+					},
 					tags: {type: 'stat'}
 				}
 			])
@@ -42,6 +46,7 @@ net.createServer(function(socket){
 						port: info.port,
 						subnetAddress: info.subnetAddress,
 						macAddress: info.macAddress,
+						memLimit: info.memLimit,
 						state: info.state
 					},
 					tags: {type: 'info'}
