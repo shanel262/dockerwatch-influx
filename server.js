@@ -21,13 +21,21 @@ net.createServer(function(socket){
 		var info = JSON.parse(data)
 		containerId = info.id.substring(0, 3)
 		if(info.tag === 'Stats'){
-			console.log('RECEIVED DATA ID: ' + containerId + ':  CPU: ' + info.cpu.toFixed(2) + '%  MEMPERC: ' + info.memPerc.toFixed(2) + '%  MEMBYTES: ' + info.memBytes)
+			console.log('Received container stats:', info)
 			influx.writeMeasurement(containerId, [
 				{
 					fields: {
 						cpu: info.cpu.toFixed(2),
 						memPerc: info.memPerc.toFixed(2),
-						memBytes: info.memBytes
+						memBytes: info.memBytes,
+						rxBytes: info.rxBytes,
+						txBytes: info.txBytes,
+						rxPackets: info.rxPackets,
+						txPackets: info.txPackets,
+						rxDropped: info.rxDropped,
+						txDropped: info.txDropped,
+						rxError: info.rxError,
+						txError: info.txError
 					},
 					tags: {type: 'stat'}
 				}
