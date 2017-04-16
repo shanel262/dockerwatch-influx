@@ -1,7 +1,7 @@
 var net = require('net')
 var influxdb = require('influx').InfluxDB
 var yaml_config = require('node-yaml-config')
-var config = yaml_config.load(__dirname + 'config.yml')
+var config = yaml_config.load(__dirname + '/config.yml')
 
 var HOST = '0.0.0.0'
 var PORT = 8001
