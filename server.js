@@ -1,14 +1,16 @@
 var net = require('net')
 var influxdb = require('influx').InfluxDB
+var yaml_config = require('node-yaml-config')
+var config = yaml_config.load(__dirname + 'config.yml')
 
-var HOST = '127.0.0.1'
+var HOST = '0.0.0.0'
 var PORT = 8001
 var containerId = ""
 
 net.createServer(function(socket){
 
 	var influx = new influxdb({
-		host: 'localhost',
+		host: config.host,
 		port: 8086,
 		username: 'root',
 		password: 'root',
