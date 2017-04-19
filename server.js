@@ -12,7 +12,7 @@ net.createServer(function(socket){
 		port: 8086,
 		username: 'root',
 		password: 'root',
-		database: 'test'
+		database: 'dockerwatch'
 	})
 	
 	console.log('CONNECTED: ' + socket.remoteAddress + ' : ' + socket.remotePort)
