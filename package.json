@@ -10,6 +10,7 @@
   "author": "Shane Lacey",
   "license": "ISC",
   "dependencies": {
-    "influx": "5.0.x"
+    "influx": "5.0.x",
+    "node-yaml-config": "0.0.4"
   }
 }
