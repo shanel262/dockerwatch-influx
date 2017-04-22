@@ -1,4 +1,4 @@
-# dockerwatch-influx
+# Dockerwatch-influx
 A Node.js server that waits to receive container statistics from Dockerwatch-stats clients and then communicate with InfluxDB to store them. 
 
 ## How to run
